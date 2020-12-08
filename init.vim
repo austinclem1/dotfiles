@@ -7,7 +7,9 @@ call plug#begin(stdpath('data'))
 " Plug 'dense-analysis/ale'
 " Plug 'ervandew/supertab'
 " Plug 'jiangmiao/auto-pairs'
-" Plug 'jremmen/vim-ripgrep'
+Plug 'krisajenkins/vim-projectlocal'
+Plug 'milkypostman/vim-togglelist'
+Plug 'jremmen/vim-ripgrep'
 " Plug 'lifepillar/vim-mucomplete'
 " Plug 'maralla/completor.vim', { 'do': 'make js' }
 " Plug 'sheerun/vim-polyglot'
@@ -18,10 +20,13 @@ call plug#begin(stdpath('data'))
 " Plug 'vim-syntastic/syntastic'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'Raimondi/delimitMate'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-rooter'
 Plug 'alvan/vim-closetag'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'habamax/vim-godot'
 Plug 'haya14busa/incsearch-easymotion.vim'
@@ -48,6 +53,7 @@ Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tomasiser/vim-code-dark'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
@@ -55,6 +61,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'wellle/targets.vim'
 Plug 'ziglang/zig.vim'
 call plug#end()
 
@@ -86,7 +93,7 @@ endif
 
 " use powershell instead of cmd.exe
 " set shell=powershell
-" set shellquote="
+" set shellquote=(
 " set shellpipe=\|
 " set shellxquote=
 " set shellcmdflag=-NoLogo\ -NoProfile\ -ExecutionPolicy\ RemoteSigned\ -Command
@@ -128,17 +135,16 @@ let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 if executable('rg')
-	" set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
-	" let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-	let g:ctrlp_user_command = 'rg %s --files'
-	let g:ctrlp_use_caching = 0
-	let g:ctrlp_working_path_mode = 'ra'
-	let g:ctrlp_switch_buffer = 'et'
-else
-	let g:ctrlp_clear_cache_on_exit = 0
+	set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+	let $FZF_DEFAULT_COMMAND ='rg --files --hidden --follow --glob "!.git/*"'
 endif
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+command! ProjectFiles execute 'Files' s:find_git_root()
 
 nmap <leader>. :CocList outline<CR>
+" nmap <leader>. :CocList symbols<CR>
 
 autocmd InsertEnter * :set timeoutlen=200
 autocmd InsertLeave * :set timeoutlen=1000
@@ -153,11 +159,13 @@ nmap <A-/> :nohlsearch<CR>
 nmap <leader>vr :tabedit $MYVIMRC<CR>
 nmap <leader>so :source $MYVIMRC<CR>
 
+nmap <C-p> :ProjectFiles<CR>
+
 " recent files
-nmap <leader>fr :CtrlPMRU<CR>
+nmap <leader>fr :History<CR>
 
 " fuzzy open buffers
-nmap <leader>bb :CtrlPBuffer<CR>
+nmap <leader>bb :Buffers<CR>
 " close buffer
 nmap <leader>bd :bd<CR>
 
@@ -193,12 +201,6 @@ set list listchars=tab:»·,trail:·,nbsp:·
 set list
 
 set nojoinspaces
-
-if executable('rg')
-	set grepprg=rg
-
-	let $FZF_DEFAULT_COMMAND = 'rg'
-endif
 
 set textwidth=80
 set colorcolumn=+1
@@ -353,7 +355,7 @@ if has('nvim')
 endif
 
 " C-n toggle NERTTree
-nmap <C-n> :NERDTreeToggle<CR>
+nmap <C-n> :NERDTreeToggle %<CR>
 
 " C-r to start replace with selection
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
@@ -371,6 +373,7 @@ nnoremap <leader>lsd :ls<cr>:bd<space>
 " git fugitive mappings
 nmap <leader>gh :diffget //2<CR>
 nmap <leader>gl :diffget //3<CR>
+nmap <leader>dp :diffput<CR>
 nmap <leader>gs :G<CR>
 nmap <leader>gc :G commit<CR>
 nmap <leader>gl :G log<CR>
@@ -386,3 +389,14 @@ nnoremap <silent> ]q :cnext<CR>
 
 " TEMP rename vars with m_ prefix
 nnoremap <leader>rm "hyiW:%s/<C-r>h\\|self.<C-r>h/m_<C-r>h/gc
+
+" Shift-Enter inserts new line below in insert mode
+imap <S-CR> <C-o>O
+
+noremap <F4> :call Build()<CR>
+
+function Build()
+	" let git_root = finddir('.git/..', expand('%:p:h').';')
+	let build_script_path = findfile('build.bat', ';')
+	:exec '!'.build_script_path
+endfunction
