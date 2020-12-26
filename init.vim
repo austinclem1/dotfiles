@@ -7,6 +7,7 @@ call plug#begin(stdpath('data'))
 " Plug 'dense-analysis/ale'
 " Plug 'ervandew/supertab'
 " Plug 'jiangmiao/auto-pairs'
+Plug 'OmniSharp/omnisharp-vim'
 Plug 'honza/vim-snippets'
 Plug 'krisajenkins/vim-projectlocal'
 Plug 'milkypostman/vim-togglelist'
@@ -25,16 +26,14 @@ Plug 'Raimondi/delimitMate'
 Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
 Plug 'alvan/vim-closetag'
-" Plug 'ctrlpvim/ctrlp.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'habamax/vim-godot'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'lambdalisue/vim-fullscreen'
 Plug 'leafgarland/typescript-vim'
@@ -76,6 +75,14 @@ set nocompatible
 
 colorscheme codedark
 let g:airline_theme = 'codedark'
+
+" c-space to trigger completion
+if has('nvim')
+	set guifont=Consolas:h14
+	inoremap <silent><expr> <c-space> coc#refresh()
+else
+	inoremap <silent><expr> <c-@> coc#refresh()
+endif
 
 " set lines=32
 " set columns=160
@@ -137,15 +144,14 @@ let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 if executable('rg')
 	set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
-	let $FZF_DEFAULT_COMMAND ='rg --files --hidden --follow --glob "!.git/*"'
+	" let $FZF_DEFAULT_COMMAND ='rg --files --hidden --follow --glob "!.git/*"'
+	let g:ctrlp_user_command ='rg --files --hidden --follow --glob "!.git/*"'
 endif
 function! s:find_git_root()
   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
 endfunction
-command! ProjectFiles execute 'Files' s:find_git_root()
-
-nmap <leader>. :CocList outline<CR>
-" nmap <leader>. :CocList symbols<CR>
+" command! ProjectFiles execute 'Files' s:find_git_root()
+" nmap <C-p> :ProjectFiles<CR>
 
 autocmd InsertEnter * :set timeoutlen=200
 autocmd InsertLeave * :set timeoutlen=1000
@@ -153,20 +159,20 @@ autocmd InsertLeave * :set timeoutlen=1000
 imap <C-[> <Esc>
 imap fd <Esc>
 
+" Esc works from terminal mode
+tnoremap <Esc> <C-\><C-n>
+
 nmap 0 ^
 
 nmap <A-/> :nohlsearch<CR>
 
 nmap <leader>vr :tabedit $MYVIMRC<CR>
-nmap <leader>so :source $MYVIMRC<CR>
-
-nmap <C-p> :ProjectFiles<CR>
+command! SO source $MYVIMRC
 
 " recent files
-nmap <leader>fr :History<CR>
-
+nmap <leader>fr :CtrlPMRU<CR>
 " fuzzy open buffers
-nmap <leader>bb :Buffers<CR>
+nmap <leader>bb :CtrlPBuffer<CR>
 " close buffer
 nmap <leader>bd :bd<CR>
 
@@ -193,9 +199,12 @@ if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
 	syntax on
 endif
 
+set autoread
+au CursorHold,CursorHoldI * checktime
+
 set tabstop=2
 set shiftwidth=2
-set shiftround
+set softtabstop=2
 set noexpandtab
 
 set list listchars=tab:»·,trail:·,nbsp:·
@@ -226,8 +235,8 @@ nnoremap <A-l> gt
 nnoremap <A-h> gT
 
 " Move between linting errors
-nnoremap ]r :ALENextWrap<CR>
-nnoremap [r :ALEPreviousWrap<CR>
+" nnoremap ]r :ALENextWrap<CR>
+" nnoremap [r :ALEPreviousWrap<CR>
 
 " Alt-w search for one character input
 map <A-w> <Plug>(easymotion-s)
@@ -236,12 +245,6 @@ nmap <A-s> <Plug>(easymotion-sn)
 let g:EasyMotion_smartcase = 1
 
 map z/ <Plug>(incsearch-easymotion-/)
-
-" colorscheme jellybeans
-" let g:lightline = { 'colorscheme': 'jellybeans' }
-
-" Esc works from terminal mode
-tnoremap <Esc> <C-\><C-n>
 
 " NERDTree open on right
 let g:NERDTreeWinPos='right'
@@ -314,7 +317,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 nmap <leader>rn <Plug>(coc-rename)
-
+nmap <F2> <Plug>(coc-refactor)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -328,15 +331,6 @@ function! s:show_documentation()
 		execute '!' . &keywordprg . " " . expand('<cword>')
 	endif
 endfunction
-
-nmap <F2> <Plug>(coc-refactor)
-
-" c-space to trigger completion
-if has('nvim')
-	inoremap <silent><expr> <c-space> coc#refresh()
-else
-	inoremap <silent><expr> <c-@> coc#refresh()
-endif
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
 if has('nvim-0.4.0') || has('patch-8.2.0750')
@@ -373,6 +367,23 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)
 
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " C-n toggle NERTTree
 nmap <C-n> :NERDTreeToggle<CR>
@@ -407,14 +418,11 @@ nnoremap <Leader>/ :Rg<Space>
 nnoremap <silent> [q :cprevious<CR>
 nnoremap <silent> ]q :cnext<CR>
 
-" TEMP rename vars with m_ prefix
-nnoremap <leader>rm "hyiW:%s/<C-r>h\\|self.<C-r>h/m_<C-r>h/gc
-
 " Shift-Enter inserts new line below in insert mode
 imap <S-CR> <C-o>O
 
+" find build.bat from this dir out and run it
 noremap <F4> :call Build()<CR>
-
 function Build()
 	" let git_root = finddir('.git/..', expand('%:p:h').';')
 	let build_script_path = findfile('build.bat', ';')
