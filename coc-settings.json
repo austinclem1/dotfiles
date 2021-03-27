@@ -5,6 +5,10 @@
       "host": "127.0.0.1",
       "filetypes": ["gd", "gdscript3", "gdscript"],
       "port": 6008
+    },
+    "zls": {
+      "command": "C:/bin/zls/zls.exe",
+      "filetypes": ["zig"]
     }
   }
 }

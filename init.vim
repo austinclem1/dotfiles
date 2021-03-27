@@ -1,16 +1,22 @@
 call plug#begin(stdpath('data'))
 
 
-" Plug 'SirVer/ultisnips'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'nathunsmitty/diagnostic-nvim'
+" Plug 'nvim-lua/completion'
+" Plug 'ziglang/zig.vim'
+Plug 'SirVer/ultisnips'
 " Plug 'Valloric/YouCompleteMe'
 " Plug 'clktmr/vim-gdscript3'
 " Plug 'dense-analysis/ale'
 " Plug 'ervandew/supertab'
 " Plug 'jiangmiao/auto-pairs'
-Plug 'OmniSharp/omnisharp-vim'
-Plug 'honza/vim-snippets'
-Plug 'krisajenkins/vim-projectlocal'
-Plug 'milkypostman/vim-togglelist'
+Plug 'norcalli/nvim-colorizer.lua'
+" Plug 'OmniSharp/omnisharp-vim'
+" Plug 'honza/vim-snippets'
+" Plug 'krisajenkins/vim-projectlocal'
+" Plug 'milkypostman/vim-togglelist'
 Plug 'jremmen/vim-ripgrep'
 " Plug 'lifepillar/vim-mucomplete'
 " Plug 'maralla/completor.vim', { 'do': 'make js' }
@@ -20,7 +26,7 @@ Plug 'jremmen/vim-ripgrep'
 " Plug 'tpope/vim-ragtag'
 " Plug 'tpope/vim-sensible'
 " Plug 'vim-syntastic/syntastic'
-Plug 'MaxMEllon/vim-jsx-pretty'
+" Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'Raimondi/delimitMate'
 " Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
@@ -30,24 +36,24 @@ Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
-Plug 'habamax/vim-godot'
+" Plug 'habamax/vim-godot'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch.vim'
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'lambdalisue/vim-fullscreen'
 Plug 'leafgarland/typescript-vim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'mileszs/ack.vim'
-Plug 'morhetz/gruvbox'
-Plug 'nanotech/jellybeans.vim'
+" Plug 'morhetz/gruvbox'
+" Plug 'nanotech/jellybeans.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'pangloss/vim-javascript'
-Plug 'peitalin/vim-jsx-typescript'
+" Plug 'pangloss/vim-javascript'
+" Plug 'peitalin/vim-jsx-typescript'
 Plug 'preservim/nerdtree'
-Plug 'preservim/tagbar'
+" Plug 'preservim/tagbar'
 Plug 'rbong/vim-flog'
-Plug 'relastle/bluewery.vim'
+" Plug 'relastle/bluewery.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -57,13 +63,17 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'wellle/targets.vim'
-Plug 'ziglang/zig.vim'
 call plug#end()
+
+lua << EOF
+require'lspconfig'.zls.setup{}
+EOF
 
 set nocompatible
 
@@ -72,6 +82,8 @@ set nocompatible
 " noremap k gk
 
 " autocmd vimenter * ++nested colorscheme gruvbox
+
+runtime macros/sandwich/keymap/surround.vim
 
 colorscheme codedark
 let g:airline_theme = 'codedark'
@@ -193,6 +205,9 @@ set laststatus=2
 set autowrite
 set modelines=0
 set nomodeline
+
+set termguicolors
+lua require'colorizer'.setup()
 
 " If terminal has colors, use syntax highlighting
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
