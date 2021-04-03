@@ -1,10 +1,11 @@
--- FZF SHORTCUTS
--- Files
-vim.api.nvim_set_keymap('n', '<C-p>', ':GFiles<CR>', { noremap=true })
--- Recent Files
-vim.api.nvim_set_keymap('n', '<leader>fr', ':History<CR>', { noremap=true })
--- Start prompt for line search in current buffer
-vim.api.nvim_set_keymap('n', '<leader>/', ':Lines<Space>', { noremap=true })
+-- TELESCOPE SHORTCUTS
+vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>fr', ':Telescope oldfiles<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope live_grep<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope buffers<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>sd', ':Telescope lsp_document_symbols<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>sw', ':Telescope lsp_workspace_symbols<CR>', { noremap=true })
 
 -- F11 for fullscreen
 vim.api.nvim_set_keymap('', '<F11>', ':FullscreenToggle<CR>', { noremap=true })
@@ -50,7 +51,7 @@ end
 
 -- TREESITTER CONFIG
 require'nvim-treesitter.configs'.setup {
-	ensure_installed = { "zig" },
+	ensure_installed = { "zig", "typescript", "tsx" },
 	highlight = {
 		enable = true,
 	},

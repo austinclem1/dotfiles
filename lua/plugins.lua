@@ -15,8 +15,10 @@ return require('packer').startup(function()
 	use 'nvim-treesitter/nvim-treesitter-refactor'
 	-- use 'nvim-treesitter/completion-treesitter'
 	-- Fuzzy finding
-	use { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end }
-	use 'junegunn/fzf.vim'
+	use {
+		'nvim-telescope/telescope.nvim',
+		requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+	}
 	-- Lightweight status line
 	use 'itchyny/lightline.vim'
 	use 'justinmk/vim-sneak'
