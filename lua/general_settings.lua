@@ -22,6 +22,8 @@ vim.api.nvim_set_keymap('n', '<A-/>', ':nohlsearch<CR>', { noremap=true })
 
 -- Shift-Enter inserts new line below in insert mode
 vim.api.nvim_set_keymap('i', '<S-CR>', '<C-o>O', { noremap=true })
+-- Shift-Space inserts space after cursor in insert mode
+vim.api.nvim_set_keymap('i', '<S-Space>', '<Space><Left>', { noremap=true })
 
 -- Use bigger font
 vim.api.nvim_set_option('guifont', 'Consolas:h14')
@@ -38,10 +40,10 @@ vim.api.nvim_set_option('number', true)
 vim.api.nvim_set_option('relativenumber', true)
 vim.api.nvim_set_option('numberwidth', 5)
 
-vim.api.nvim_set_option('tabstop', 2)
-vim.api.nvim_set_option('softtabstop', 2)
-vim.api.nvim_set_option('expandtab', false)
-vim.api.nvim_set_option('shiftwidth', 2)
+-- vim.api.nvim_set_option('tabstop', 2)
+vim.api.nvim_set_option('softtabstop', 4)
+vim.api.nvim_set_option('shiftwidth', 4)
+vim.api.nvim_set_option('expandtab', true)
 
 -- Default to split right
 vim.api.nvim_set_option('splitright', true)
@@ -52,6 +54,7 @@ vim.api.nvim_set_option('smartcase', true)
 
 vim.api.nvim_set_option('completeopt', 'menuone,noinsert,noselect')
 vim.g.completion_enable_auto_popup = 1
-vim.g.completion_matching_strategy_list = 'exact, substring, fuzzy'
+vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy', 'all'}
 
-vim.cmd('colorscheme codedark')
+vim.o.background = 'dark'
+vim.cmd('colorscheme gruvbox')
