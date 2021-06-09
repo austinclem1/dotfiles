@@ -26,7 +26,7 @@ vim.api.nvim_set_keymap('i', '<S-CR>', '<C-o>O', { noremap=true })
 vim.api.nvim_set_keymap('i', '<S-Space>', '<Space><Left>', { noremap=true })
 
 -- Use bigger font
-vim.api.nvim_set_option('guifont', 'Consolas:h14')
+vim.api.nvim_set_option('guifont', 'Consolas:h15')
 
 -- If file has changed on disk, reload it in vim
 vim.api.nvim_set_option('autoread', true)
