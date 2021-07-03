@@ -21,6 +21,7 @@ return require('packer').startup(function()
 		'nvim-telescope/telescope.nvim',
 		requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
 	}
+        use 'justinmk/vim-sneak'
 	-- Status line
 	use {
 		'hoob3rt/lualine.nvim',
@@ -51,7 +52,8 @@ return require('packer').startup(function()
 			}
 		end
 	}
-	use 'justinmk/vim-sneak'
+        -- Highlight text after yanking
+        use 'machakann/vim-highlightedyank'
 	-- Pair completion
 	use 'Raimondi/delimitMate'
 	-- Easy text object for working with indentation blocks (i.e. function blocks)

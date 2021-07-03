@@ -14,6 +14,11 @@ vim.api.nvim_set_keymap('t', 'jk', '<Esc>', { noremap=true })
 -- Shortcut to edit init.lua
 vim.api.nvim_set_keymap('', '<Leader>vr', ':tabedit $MYVIMRC<CR>', { noremap=true })
 
+-- Incrementally show effect of commands such as substitute as you type
+-- nosplit means don't show a split window with the results, just use
+-- the main buffer
+vim.api.nvim_set_option('icm', 'nosplit')
+
 -- Change to current file's directory
 vim.api.nvim_set_keymap('n', '<leader>cd', ':cd %:p:h<CR>:pwd<CR>', { noremap=true })
 
