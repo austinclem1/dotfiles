@@ -1,13 +1,43 @@
 -- TELESCOPE SHORTCUTS
-vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap=true })
 vim.api.nvim_set_keymap('n', '<leader>fr', ':Telescope oldfiles<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope live_grep<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope buffers<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope git_files<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>gg', ':Telescope live_grep<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope current_buffer_fuzzy_find<CR>', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>fb', ':lua require(\'telescope.builtin\').current_buffer_fuzzy_find({sorter = require\'telescope.sorters\'.fuzzy_with_index_bias})<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>bb', ':Telescope buffers<CR>', { noremap=true })
 vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', { noremap=true })
 vim.api.nvim_set_keymap('n', '<leader>sd', ':Telescope lsp_document_symbols<CR>', { noremap=true })
 vim.api.nvim_set_keymap('n', '<leader>sw', ':Telescope lsp_workspace_symbols<CR>', { noremap=true })
 vim.api.nvim_set_keymap('n', '<leader>st', ':Telescope treesitter<CR>', { noremap=true })
 vim.api.nvim_set_keymap('n', '<leader>ch', ':Telescope command_history<CR>', { noremap=true })
+-- Telescope Settings
+require('telescope').setup {
+    defaults = {
+        vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+            '--follow'
+        }
+    }
+}
+-- Fuzzy Finder Shortcuts
+-- vim.api.nvim_set_keymap('n', '<leader>ff', ':Files<CR>', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>fg', ':GFiles<CR>', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>fr', ':History<CR>', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>rg', ':Rg<CR>', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope current_buffer_fuzzy_find<CR>', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>bb', ':Buffers', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>sd', ':Telescope lsp_document_symbols<CR>', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>sw', ':Telescope lsp_workspace_symbols<CR>', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>st', ':Telescope treesitter<CR>', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>ch', ':Telescope command_history<CR>', { noremap=true })
 
 -- F11 for fullscreen
 vim.api.nvim_set_keymap('', '<F11>', ':FullscreenToggle<CR>', { noremap=true })
@@ -29,7 +59,7 @@ local on_attach = function(client, bufnr)
         local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
         -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-	require('completion').on_attach()
+	-- require('completion').on_attach()
 
 	-- Mappings
 	local opts = { noremap=true, silent=true }
@@ -85,3 +115,61 @@ require'nvim-treesitter.configs'.setup {
 
 -- Use vim-surround bindings for vim-sandwich
 vim.cmd('runtime macros/sandwich/keymap/surround.vim')
+
+-- Autocompletion
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  resolve_timeout = 800;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = {
+    border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
+    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+    max_width = 120,
+    min_width = 60,
+    max_height = math.floor(vim.o.lines * 0.3),
+    min_height = 1,
+  };
+
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    vsnip = true;
+    ultisnips = true;
+    luasnip = true;
+  };
+}
+
+-- Debug Adapter
+local dap = require 'dap'
+dap.adapters.cpptools = {
+    type = 'executable',
+    command = 'C:/Users/Austin/cpptools-win32/extension/debugAdapters/bin/OpenDebugAD7.exe'
+}
+dap.configurations.cpp = {
+    {
+        name = "Launch",
+        type = "cpptools",
+        request = "launch",
+        program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = true,
+    },
+}
+dap.configurations.c = dap.configurations.cpp
+
+-- For dapui
+require("dapui").setup()

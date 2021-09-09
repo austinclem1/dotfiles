@@ -14,11 +14,6 @@ vim.api.nvim_set_keymap('t', 'jk', '<Esc>', { noremap=true })
 -- Shortcut to edit init.lua
 vim.api.nvim_set_keymap('', '<Leader>vr', ':tabedit $MYVIMRC<CR>', { noremap=true })
 
--- Incrementally show effect of commands such as substitute as you type
--- nosplit means don't show a split window with the results, just use
--- the main buffer
-vim.api.nvim_set_option('icm', 'nosplit')
-
 -- Change to current file's directory
 vim.api.nvim_set_keymap('n', '<leader>cd', ':cd %:p:h<CR>:pwd<CR>', { noremap=true })
 
@@ -31,35 +26,48 @@ vim.api.nvim_set_keymap('i', '<S-CR>', '<C-o>O', { noremap=true })
 vim.api.nvim_set_keymap('i', '<S-Space>', '<Space><Left>', { noremap=true })
 
 -- Use bigger font
-vim.api.nvim_set_option('guifont', 'Consolas:h15')
+vim.o.guifont = 'Consolas:h16'
+
+-- Incrementally show effect of commands such as substitute as you type
+-- nosplit means don't show a split window with the results, just use
+-- the main buffer
+vim.o.icm = 'nosplit'
 
 -- If file has changed on disk, reload it in vim
-vim.api.nvim_set_option('autoread', true)
+vim.o.autoread = true
 
 -- Whitespace characters
-vim.api.nvim_set_option('listchars', 'tab:»·,trail:·,nbsp:·')
-vim.api.nvim_set_option('list', true)
+vim.o.listchars = 'tab:»·,trail:·,nbsp:·'
+vim.o.list = true
 
 -- Relative line-numbers
-vim.api.nvim_set_option('number', true)
-vim.api.nvim_set_option('relativenumber', true)
-vim.api.nvim_set_option('numberwidth', 5)
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.numberwidth = 5
 
--- vim.api.nvim_set_option('tabstop', 2)
-vim.api.nvim_set_option('softtabstop', 4)
-vim.api.nvim_set_option('shiftwidth', 4)
-vim.api.nvim_set_option('expandtab', true)
+-- vim.o.tabstop = 2
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
 
 -- Default to split right
-vim.api.nvim_set_option('splitright', true)
+vim.o.splitright = true
 
 -- Use smartcase for search
-vim.api.nvim_set_option('ignorecase', true)
-vim.api.nvim_set_option('smartcase', true)
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
-vim.api.nvim_set_option('completeopt', 'menuone,noinsert,noselect')
-vim.g.completion_enable_auto_popup = 1
-vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy', 'all'}
+-- vim.o.completeopt = 'menuone,noinsert,noselect'
+-- vim.g.completion_enable_auto_popup = 1
+-- vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy', 'all'}
 
-vim.o.background = 'dark'
-vim.cmd('colorscheme gruvbox')
+-- vim.o.background = 'dark'
+-- vim.cmd('colorscheme gruvbox')
+vim.cmd('colorscheme codedark')
+
+-- Create file backup for recovery
+vim.o.backup = true
+-- vim.o.backupdir = vim.fn.stdpath('data') .. '/backup'
+-- `backupext` is appended to backup file name
+-- Use autocommand to set timestamp before each write
+-- vim.api.nvim_exec([[autocmd BufWritePre * :let &backupext=strftime("_%C-%m-%d_%H-%M-%S.bak")]], false)

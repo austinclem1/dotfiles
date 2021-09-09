@@ -7,20 +7,30 @@ end
 
 return require('packer').startup(function()
 	use 'wbthomason/packer.nvim'
-	-- Coc lsp while native is worked on
-	-- use { 'neoclide/coc.nvim', branch = 'release' }
 	-- Native neovim lsp support
 	use 'neovim/nvim-lspconfig'
-	use 'nvim-lua/completion-nvim'
+        -- Autocompletion
+	-- use 'nvim-lua/completion-nvim'
+        use 'hrsh7th/nvim-compe'
+        -- use {
+        --     'ms-jpq/coq_nvim', branch = 'coq'
+        -- }
+        -- Snippets for coq
+        -- use {
+        --     'ms-jpq/coq.artifacts', branch = 'artifacts'
+        -- }
+        -- Debug Adapter Protocol
+        use 'mfussenegger/nvim-dap'
+        use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
 	-- Treesitter for syntax highlighting and more
 	use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 	use 'nvim-treesitter/nvim-treesitter-refactor'
 	-- use 'nvim-treesitter/completion-treesitter'
 	-- Fuzzy finding
-	use {
-		'nvim-telescope/telescope.nvim',
-		requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
-	}
+	--use {
+	--	'nvim-telescope/telescope.nvim',
+	--	requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+	--}
         use 'justinmk/vim-sneak'
 	-- Status line
 	use {
@@ -29,7 +39,7 @@ return require('packer').startup(function()
 		config = function()
 			require('lualine').setup{
 				options = {
-					theme = 'gruvbox',
+					theme = 'codedark',
 					section_separators = '',
 					component_separators = '',
 				},
@@ -80,11 +90,28 @@ return require('packer').startup(function()
 	use 'wellle/targets.vim'
 	-- Swap function arguments around and other delimited items
 	use 'machakann/vim-swap'
+        -- Fuzzy finder + nvim integration
+        -- use { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end }
+        -- use 'junegunn/fzf.vim'
+        -- Fuzzy Finding for LSP
+        -- use {
+        --   'ojroques/nvim-lspfuzzy',
+        --   requires = {
+        --     {'junegunn/fzf'},
+        --     {'junegunn/fzf.vim'},  -- to enable preview (optional)
+        --   },
+        -- }
+        -- Telescope Fuzzy Finder
+        use {
+          'nvim-telescope/telescope.nvim',
+          requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+        }
 	-- Themes
 	use 'tomasiser/vim-code-dark'
 	use {'npxbr/gruvbox.nvim', requires = {'rktjmp/lush.nvim'}}
 	-- Edits in quickfix menu affect code they reference
 	use 'stefandtw/quickfix-reflector.vim'
+        -- Various Language Support
 	use 'ziglang/zig.vim'
 	use 'habamax/vim-godot'
         use 'dart-lang/dart-vim-plugin'
