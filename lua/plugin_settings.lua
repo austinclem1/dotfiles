@@ -1,7 +1,8 @@
 -- TELESCOPE SHORTCUTS
 vim.api.nvim_set_keymap('n', '<leader>fr', ':Telescope oldfiles<CR>', { noremap=true })
 vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope git_files<CR>', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope git_files<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>fg', '<cmd>lua require(\'telescope.builtin\').git_files({cwd=vim.fn.expand(\'%:p:h\')})<CR>', { noremap=true })
 vim.api.nvim_set_keymap('n', '<leader>gg', ':Telescope live_grep<CR>', { noremap=true })
 vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope current_buffer_fuzzy_find<CR>', { noremap=true })
 -- vim.api.nvim_set_keymap('n', '<leader>fb', ':lua require(\'telescope.builtin\').current_buffer_fuzzy_find({sorter = require\'telescope.sorters\'.fuzzy_with_index_bias})<CR>', { noremap=true })
