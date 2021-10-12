@@ -40,6 +40,11 @@ require('telescope').setup {
 -- vim.api.nvim_set_keymap('n', '<leader>st', ':Telescope treesitter<CR>', { noremap=true })
 -- vim.api.nvim_set_keymap('n', '<leader>ch', ':Telescope command_history<CR>', { noremap=true })
 
+-- delimMate settings
+-- Expand carriage return and space when inside matching pair
+vim.g.delimitMate_expand_cr = 1
+vim.g.delimitMate_expand_space = 1
+
 -- F11 for fullscreen
 vim.api.nvim_set_keymap('', '<F11>', ':FullscreenToggle<CR>', { noremap=true })
 
