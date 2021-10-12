@@ -115,4 +115,6 @@ return require('packer').startup(function()
 	use 'ziglang/zig.vim'
 	use 'habamax/vim-godot'
         use 'dart-lang/dart-vim-plugin'
+        -- lazygit Git integration
+        use 'kdheepak/lazygit.nvim'
 end)
