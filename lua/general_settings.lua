@@ -24,6 +24,8 @@ vim.api.nvim_set_keymap('n', '<A-/>', ':nohlsearch<CR>', { noremap=true })
 vim.api.nvim_set_keymap('i', '<S-CR>', '<C-o>O', { noremap=true })
 -- Shift-Space inserts space after cursor in insert mode
 vim.api.nvim_set_keymap('i', '<S-Space>', '<Space><Left>', { noremap=true })
+-- Remap this so Shift-Enter works on some terminals
+vim.api.nvim_set_keymap('i', '\x0a', '<S-CR>', { noremap=false })
 
 -- Use bigger font
 vim.o.guifont = 'Consolas:h16'
