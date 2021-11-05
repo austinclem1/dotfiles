@@ -12,6 +12,16 @@ return require('packer').startup(function()
         -- Autocompletion
 	-- use 'nvim-lua/completion-nvim'
         use 'hrsh7th/nvim-compe'
+        -- use 'hrsh7th/cmp-nvim-lsp'
+        -- use 'hrsh7th/cmp-buffer'
+        -- use 'hrsh7th/nvim-cmp'
+        -- Snippet engine and sources
+        -- use 'SirVer/ultisnips'
+        -- use 'honza/vim-snippets'
+        -- use 'hrsh7th/cmp-vsnip'
+        use 'hrsh7th/vim-vsnip'
+        use 'hrsh7th/vim-vsnip-integ'
+        use 'Metalymph/zig-snippets'
         -- use {
         --     'ms-jpq/coq_nvim', branch = 'coq'
         -- }
@@ -91,8 +101,8 @@ return require('packer').startup(function()
 	-- Swap function arguments around and other delimited items
 	use 'machakann/vim-swap'
         -- Fuzzy finder + nvim integration
-        -- use { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end }
-        -- use 'junegunn/fzf.vim'
+        use { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end }
+        use 'junegunn/fzf.vim'
         -- Fuzzy Finding for LSP
         -- use {
         --   'ojroques/nvim-lspfuzzy',
@@ -115,6 +125,7 @@ return require('packer').startup(function()
 	use 'ziglang/zig.vim'
 	use 'habamax/vim-godot'
         use 'dart-lang/dart-vim-plugin'
+        use 'OrangeT/vim-csharp'
         -- lazygit Git integration
         use 'kdheepak/lazygit.nvim'
 end)

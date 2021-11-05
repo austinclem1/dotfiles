@@ -25,7 +25,8 @@ vim.api.nvim_set_keymap('i', '<S-CR>', '<C-o>O', { noremap=true })
 -- Shift-Space inserts space after cursor in insert mode
 vim.api.nvim_set_keymap('i', '<S-Space>', '<Space><Left>', { noremap=true })
 -- Remap this so Shift-Enter works on some terminals
-vim.api.nvim_set_keymap('i', '\x0a', '<S-CR>', { noremap=false })
+vim.api.nvim_set_keymap('i', '\x0a', '<C-o>O', { noremap=true })
+vim.api.nvim_set_keymap('i', '<C-CR>', '<C-o>O', { noremap=true })
 
 -- Use bigger font
 vim.o.guifont = 'Consolas:h16'
@@ -59,9 +60,9 @@ vim.o.splitright = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- vim.o.completeopt = 'menuone,noinsert,noselect'
--- vim.g.completion_enable_auto_popup = 1
--- vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy', 'all'}
+vim.o.completeopt = 'menuone,noinsert,noselect'
+vim.g.completion_enable_auto_popup = 1
+vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy', 'all'}
 
 -- vim.o.background = 'dark'
 -- vim.cmd('colorscheme gruvbox')

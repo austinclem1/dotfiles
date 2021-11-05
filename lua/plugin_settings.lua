@@ -1,12 +1,12 @@
 -- TELESCOPE SHORTCUTS
-vim.api.nvim_set_keymap('n', '<leader>fr', ':Telescope oldfiles<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>fr', ':Telescope oldfiles<CR>', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>ff', ':Telescope find_files<CR>', { noremap=true })
 -- vim.api.nvim_set_keymap('n', '<leader>fg', ':Telescope git_files<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>fg', '<cmd>lua require(\'telescope.builtin\').git_files({cwd=vim.fn.expand(\'%:p:h\')})<CR>', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>fg', '<cmd>lua require(\'telescope.builtin\').git_files({cwd=vim.fn.expand(\'%:p:h\')})<CR>', { noremap=true })
 -- vim.api.nvim_set_keymap('n', '<leader>gg', ':Telescope live_grep<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope current_buffer_fuzzy_find<CR>', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope current_buffer_fuzzy_find<CR>', { noremap=true })
 -- vim.api.nvim_set_keymap('n', '<leader>fb', ':lua require(\'telescope.builtin\').current_buffer_fuzzy_find({sorter = require\'telescope.sorters\'.fuzzy_with_index_bias})<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>bb', ':Telescope buffers<CR>', { noremap=true })
+-- vim.api.nvim_set_keymap('n', '<leader>bb', ':Telescope buffers<CR>', { noremap=true })
 vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', { noremap=true })
 vim.api.nvim_set_keymap('n', '<leader>sd', ':Telescope lsp_document_symbols<CR>', { noremap=true })
 vim.api.nvim_set_keymap('n', '<leader>sw', ':Telescope lsp_workspace_symbols<CR>', { noremap=true })
@@ -31,12 +31,13 @@ require('telescope').setup {
 vim.api.nvim_set_keymap('n', '<leader>gg', ':LazyGit<CR>', { noremap=true })
 
 -- Fuzzy Finder Shortcuts
--- vim.api.nvim_set_keymap('n', '<leader>ff', ':Files<CR>', { noremap=true })
--- vim.api.nvim_set_keymap('n', '<leader>fg', ':GFiles<CR>', { noremap=true })
--- vim.api.nvim_set_keymap('n', '<leader>fr', ':History<CR>', { noremap=true })
--- vim.api.nvim_set_keymap('n', '<leader>rg', ':Rg<CR>', { noremap=true })
--- vim.api.nvim_set_keymap('n', '<leader>fb', ':Telescope current_buffer_fuzzy_find<CR>', { noremap=true })
--- vim.api.nvim_set_keymap('n', '<leader>bb', ':Buffers', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>ff', ':Files<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>fg', ':GFiles<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>fr', ':History<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>rg', ':Rg<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>:', ':History:<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>/', ':BLines<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>bb', ':Buffers<CR>', { noremap=true })
 -- vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', { noremap=true })
 -- vim.api.nvim_set_keymap('n', '<leader>sd', ':Telescope lsp_document_symbols<CR>', { noremap=true })
 -- vim.api.nvim_set_keymap('n', '<leader>sw', ':Telescope lsp_workspace_symbols<CR>', { noremap=true })
@@ -59,7 +60,6 @@ vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTreeToggle<CR>', { noremap=true })
 
 -- CoC lsp config
 -- vim.api.nvim_set_keymap('n', 'gd', '<Plug>(coc-definition)', { noremap=true, silent=false })
-
 
 -- NEOVIM LSP CONFIG
 local nvim_lsp = require('lspconfig')
@@ -89,7 +89,7 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 	buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 end
-local servers = { 'clangd', 'dartls', 'zls', 'tsserver', 'gdscript' }
+local servers = { 'csharp_ls', 'clangd', 'dartls', 'zls', 'tsserver', 'gdscript' }
 for _, lsp in ipairs(servers) do
 	nvim_lsp[lsp].setup {
 	on_attach = on_attach,
@@ -155,10 +155,18 @@ require'compe'.setup {
     nvim_lsp = true;
     nvim_lua = true;
     vsnip = true;
-    ultisnips = true;
-    luasnip = true;
+    -- ultisnips = true;
+    -- luasnip = true;
   };
 }
+-- Snippet expansion
+-- vim.api.nvim_set_keymap('i', '<C-j>', (vim.fn['vsnip#expandable']() and '<Plug>(vsnip-expand)' or '<C-j>'), {})
+-- vim.api.nvim_set_keymap('s', '<C-j>', (vim.fn['vsnip#expandable']() and '<Plug>(vsnip-expand)' or '<C-j>'), {})
+
+vim.api.nvim_set_keymap('i', '<C-j>', (vim.fn['vsnip#available'](1) and '<Plug>(vsnip-expand-or-jump)' or '<C-j>'), {})
+vim.api.nvim_set_keymap('s', '<C-j>', (vim.fn['vsnip#available'](1) and '<Plug>(vsnip-expand-or-jump)' or '<C-j>'), {})
+vim.api.nvim_set_keymap('i', '<C-k>', (vim.fn['vsnip#jumpable'](-1) and '<Plug>(vsnip-jump-prev)' or '<C-k>'), {})
+vim.api.nvim_set_keymap('s', '<C-k>', (vim.fn['vsnip#jumpable'](-1) and '<Plug>(vsnip-jump-prev)' or '<C-k>'), {})
 
 -- Debug Adapter
 local dap = require 'dap'
@@ -182,3 +190,8 @@ dap.configurations.c = dap.configurations.cpp
 
 -- For dapui
 require("dapui").setup()
+
+-- Workaround for OrangeT/vim-csharp to detect .razor files
+vim.api.nvim_command(
+'au BufNewFile,BufRead *.razor compiler msbuild | set filetype=cshtml.html syntax=cshtml'
+)
