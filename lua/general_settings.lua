@@ -3,7 +3,7 @@ vim.g.mapleader = ' '
 
 -- Shorten time for multi key mappings in insert mode
 vim.api.nvim_command([[
-	autocmd CmdlineEnter,InsertEnter,TermEnter * set timeoutlen=200
+	autocmd CmdlineEnter,InsertEnter,TermEnter * set timeoutlen=400
 	autocmd CmdlineLeave,InsertLeave,TermLeave * set timeoutlen=1000
 ]])
 

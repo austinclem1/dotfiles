@@ -89,7 +89,7 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 	buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 end
-local servers = { 'csharp_ls', 'clangd', 'dartls', 'zls', 'tsserver', 'gdscript' }
+local servers = { 'csharp_ls', 'clangd', 'dartls', 'elmls', 'zls', 'tsserver', 'gdscript' }
 for _, lsp in ipairs(servers) do
 	nvim_lsp[lsp].setup {
 	on_attach = on_attach,
@@ -169,27 +169,27 @@ vim.api.nvim_set_keymap('i', '<C-k>', (vim.fn['vsnip#jumpable'](-1) and '<Plug>(
 vim.api.nvim_set_keymap('s', '<C-k>', (vim.fn['vsnip#jumpable'](-1) and '<Plug>(vsnip-jump-prev)' or '<C-k>'), {})
 
 -- Debug Adapter
-local dap = require 'dap'
-dap.adapters.cpptools = {
-    type = 'executable',
-    command = 'C:/Users/Austin/cpptools-win32/extension/debugAdapters/bin/OpenDebugAD7.exe'
-}
-dap.configurations.cpp = {
-    {
-        name = "Launch",
-        type = "cpptools",
-        request = "launch",
-        program = function()
-            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-        end,
-        cwd = '${workspaceFolder}',
-        stopOnEntry = true,
-    },
-}
-dap.configurations.c = dap.configurations.cpp
+-- local dap = require 'dap'
+-- dap.adapters.cpptools = {
+--     type = 'executable',
+--     command = 'C:/Users/Austin/cpptools-win32/extension/debugAdapters/bin/OpenDebugAD7.exe'
+-- }
+-- dap.configurations.cpp = {
+--     {
+--         name = "Launch",
+--         type = "cpptools",
+--         request = "launch",
+--         program = function()
+--             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+--         end,
+--         cwd = '${workspaceFolder}',
+--         stopOnEntry = true,
+--     },
+-- }
+-- dap.configurations.c = dap.configurations.cpp
 
--- For dapui
-require("dapui").setup()
+-- -- For dapui
+-- require("dapui").setup()
 
 -- Workaround for OrangeT/vim-csharp to detect .razor files
 vim.api.nvim_command(

@@ -30,8 +30,8 @@ return require('packer').startup(function()
         --     'ms-jpq/coq.artifacts', branch = 'artifacts'
         -- }
         -- Debug Adapter Protocol
-        use 'mfussenegger/nvim-dap'
-        use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+        -- use 'mfussenegger/nvim-dap'
+        -- use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
 	-- Treesitter for syntax highlighting and more
 	use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 	use 'nvim-treesitter/nvim-treesitter-refactor'
@@ -123,9 +123,10 @@ return require('packer').startup(function()
 	use 'stefandtw/quickfix-reflector.vim'
         -- Various Language Support
 	use 'ziglang/zig.vim'
-	use 'habamax/vim-godot'
-        use 'dart-lang/dart-vim-plugin'
-        use 'OrangeT/vim-csharp'
+        use 'tpope/vim-ragtag'
+	-- use 'habamax/vim-godot'
+        -- use 'dart-lang/dart-vim-plugin'
+        -- use 'OrangeT/vim-csharp'
         -- lazygit Git integration
-        use 'kdheepak/lazygit.nvim'
+        -- use 'kdheepak/lazygit.nvim'
 end)
