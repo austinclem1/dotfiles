@@ -3,8 +3,8 @@ vim.g.mapleader = ' '
 
 -- Shorten time for multi key mappings in insert mode
 vim.api.nvim_command([[
-	autocmd CmdlineEnter,InsertEnter,TermEnter * set timeoutlen=400
-	autocmd CmdlineLeave,InsertLeave,TermLeave * set timeoutlen=1000
+    autocmd CmdlineEnter,InsertEnter,TermEnter * set timeoutlen=400
+    autocmd CmdlineLeave,InsertLeave,TermLeave * set timeoutlen=1000
 ]])
 
 -- Shortcut to exit insert, ex, search, terminal mode
@@ -60,7 +60,7 @@ vim.o.splitright = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
-vim.o.completeopt = 'menuone,noinsert,noselect'
+vim.o.completeopt = 'menu,menuone,noselect'
 vim.g.completion_enable_auto_popup = 1
 vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy', 'all'}
 
