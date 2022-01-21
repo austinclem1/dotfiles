@@ -181,3 +181,20 @@ vim.api.nvim_set_keymap('s', '<C-h>', (vim.fn['vsnip#jumpable'](-1) and '<Plug>(
 vim.api.nvim_command(
 'au BufNewFile,BufRead *.razor compiler msbuild | set filetype=cshtml.html syntax=cshtml'
 )
+
+-- Formatter
+require('formatter').setup({
+    filetype = {
+        html = {
+            function()
+                return {
+                    exe = "prettier",
+                    args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+                    stdin = true
+                }
+            end
+        },
+    }
+})
+vim.api.nvim_set_keymap('n', '<leader>fo', ':Format<CR>', { noremap=true, silent=true })
+

@@ -136,6 +136,8 @@ return require('packer').startup(function()
     use 'ziglang/zig.vim'
     use 'tpope/vim-ragtag'
     use 'neovimhaskell/haskell-vim'
+    use 'mhartington/formatter.nvim'
+    -- use 'prettier/vim-prettier'
     -- use 'habamax/vim-godot'
     -- use 'dart-lang/dart-vim-plugin'
     -- use 'OrangeT/vim-csharp'
