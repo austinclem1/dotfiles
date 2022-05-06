@@ -45,7 +45,7 @@ vim.o.list = true
 
 -- Relative line-numbers
 vim.o.number = true
-vim.o.relativenumber = true
+-- vim.o.relativenumber = true
 vim.o.numberwidth = 5
 
 -- vim.o.tabstop = 2

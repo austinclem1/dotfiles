@@ -21,7 +21,7 @@ require('telescope').setup {
     }
 }
 
-vim.api.nvim_set_keymap('n', '<leader>gg', ':LazyGit<CR>', { noremap=true })
+vim.api.nvim_set_keymap('n', '<leader>gg', ':Git<CR>', { noremap=true })
 
 -- Fuzzy Finder Shortcuts
 vim.api.nvim_set_keymap('n', '<leader>ff', ':Files<CR>', { noremap=true })
@@ -69,20 +69,22 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
     -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
     buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     buf_set_keymap('n', '<space>gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
     buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+    buf_set_keymap('n', '<space>dl', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+    buf_set_keymap('n', '<space>qq', '<cmd>lua vim.lsp.buf.code_action({only="quickfix"})<CR>', opts)
 end
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-local servers = { 'csharp_ls', 'clangd', 'elmls', 'emmet_ls', 'zls', 'tsserver' }
+local servers = { 'csharp_ls', 'clangd', 'emmet_ls', 'elmls', 'fsautocomplete', 'hls', 'kotlin_language_server', 'zls', 'tsserver' }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
     capabilities = capabilities,
@@ -185,6 +187,24 @@ vim.api.nvim_command(
 -- Formatter
 require('formatter').setup({
     filetype = {
+        javascriptreact = {
+            function()
+                return {
+                    exe = "prettier",
+                    args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+                    stdin = true
+                }
+            end
+        },
+        javascript = {
+            function()
+                return {
+                    exe = "prettier",
+                    args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+                    stdin = true
+                }
+            end
+        },
         html = {
             function()
                 return {

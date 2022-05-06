@@ -133,10 +133,12 @@ return require('packer').startup(function()
     use 'stefandtw/quickfix-reflector.vim'
 
     -- Various Language Support
+    use 'udalov/kotlin-vim'
     use 'ziglang/zig.vim'
     use 'tpope/vim-ragtag'
     use 'neovimhaskell/haskell-vim'
     use 'mhartington/formatter.nvim'
+    use 'adelarsq/neofsharp.vim'
     -- use 'prettier/vim-prettier'
     -- use 'habamax/vim-godot'
     -- use 'dart-lang/dart-vim-plugin'
