@@ -141,6 +141,8 @@ cmp.setup({
         }),
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<C-l>'] = cmp.mapping.confirm({ select = false }),
+        ['<C-n>'] = cmp.mapping.select_next_item({ behavior = Insert }),
+        ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = Insert }),
     },
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
