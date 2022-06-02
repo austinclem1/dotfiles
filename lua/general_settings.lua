@@ -69,7 +69,7 @@ vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy', 'all'}
 vim.cmd('colorscheme codedark')
 
 -- Create file backup for recovery
-vim.o.backup = true
+vim.o.writebackup = true
 -- vim.o.backupdir = vim.fn.stdpath('data') .. '/backup'
 -- `backupext` is appended to backup file name
 -- Use autocommand to set timestamp before each write
