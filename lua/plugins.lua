@@ -145,5 +145,5 @@ return require('packer').startup(function()
     -- use 'OrangeT/vim-csharp'
 
     -- Silly plugin to connect to chrome text input
-    use { 'raghur/vim-ghost', run = ':GhostInstall' }
+    -- use { 'raghur/vim-ghost', run = ':GhostInstall' }
 end)
