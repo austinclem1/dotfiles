@@ -49,8 +49,8 @@ vim.o.number = true
 vim.o.numberwidth = 5
 
 -- vim.o.tabstop = 2
-vim.o.softtabstop = 4
-vim.o.shiftwidth = 4
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
 vim.o.expandtab = true
 
 -- Default to split right
@@ -74,3 +74,10 @@ vim.o.writebackup = true
 -- `backupext` is appended to backup file name
 -- Use autocommand to set timestamp before each write
 -- vim.api.nvim_exec([[autocmd BufWritePre * :let &backupext=strftime("_%C-%m-%d_%H-%M-%S.bak")]], false)
+
+-- Diagnostics
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)

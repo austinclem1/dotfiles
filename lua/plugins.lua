@@ -12,11 +12,11 @@ return require('packer').startup(function()
     use 'neovim/nvim-lspconfig'
 
     -- Autocompletion
+    use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
-    use 'hrsh7th/nvim-cmp'
 
     -- Snippet engine and sources
     -- use 'honza/vim-snippets'
@@ -133,6 +133,7 @@ return require('packer').startup(function()
     use 'stefandtw/quickfix-reflector.vim'
 
     -- Various Language Support
+    use 'neoclide/vim-jsx-improve'
     use 'udalov/kotlin-vim'
     use 'ziglang/zig.vim'
     use 'tpope/vim-ragtag'
