@@ -1,12 +1,24 @@
 -- TELESCOPE SHORTCUTS
-vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<CR>', { noremap=true })
-vim.keymap.set('n', '<leader>sd', '<cmd>Telescope lsp_document_symbols<CR>', { noremap=true })
-vim.keymap.set('n', '<leader>sw', '<cmd>Telescope lsp_workspace_symbols<CR>', { noremap=true })
-vim.keymap.set('n', '<leader>st', '<cmd>Telescope treesitter<CR>', { noremap=true })
-vim.keymap.set('n', '<leader>ch', '<cmd>Telescope command_history<CR>', { noremap=true })
+local telescope = require('telescope')
+local telescope_builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>fh', telescope_builtin.help_tags, { noremap=true })
+vim.keymap.set('n', '<leader>sd', telescope_builtin.lsp_document_symbols, { noremap=true })
+vim.keymap.set('n', '<leader>sw', telescope_builtin.lsp_workspace_symbols, { noremap=true })
+vim.keymap.set('n', '<leader>sr', telescope_builtin.lsp_references, { noremap=true })
+vim.keymap.set('n', '<leader>st', telescope_builtin.treesitter, { noremap=true })
+vim.keymap.set('n', '<leader>ch', telescope_builtin.command_history, { noremap=true })
+
+vim.keymap.set('n', '<leader>ff', telescope_builtin.find_files, { noremap=true })
+vim.keymap.set('n', '<leader>fr', telescope_builtin.oldfiles, { noremap=true })
+vim.keymap.set('n', '<leader>fg', telescope_builtin.git_files, { noremap=true })
+vim.keymap.set('n', '<leader>fq', telescope_builtin.quickfix, { noremap=true })
+vim.keymap.set('n', '<leader>rg', telescope_builtin.live_grep, { noremap=true })
+vim.keymap.set('n', '<leader>:', telescope_builtin.command_history, { noremap=true })
+vim.keymap.set('n', '<leader>/', telescope_builtin.current_buffer_fuzzy_find, { noremap=true })
+vim.keymap.set('n', '<leader>bb', telescope_builtin.buffers, { noremap=true })
 
 -- Telescope Settings
-require('telescope').setup {
+telescope.setup {
     defaults = {
         vimgrep_arguments = {
             'rg',
@@ -24,13 +36,13 @@ require('telescope').setup {
 vim.keymap.set('n', '<leader>gg', '<cmd>Git<CR>', { noremap=true })
 
 -- Fuzzy Finder Shortcuts
-vim.keymap.set('n', '<leader>ff', '<cmd>Files<CR>', { noremap=true })
-vim.keymap.set('n', '<leader>fg', '<cmd>GFiles<CR>', { noremap=true })
-vim.keymap.set('n', '<leader>fr', '<cmd>History<CR>', { noremap=true })
-vim.keymap.set('n', '<leader>rg', '<cmd>Rg<CR>', { noremap=true })
-vim.keymap.set('n', '<leader>:', '<cmd>History:<CR>', { noremap=true })
-vim.keymap.set('n', '<leader>/', '<cmd>BLines<CR>', { noremap=true })
-vim.keymap.set('n', '<leader>bb', '<cmd>Buffers<CR>', { noremap=true })
+-- vim.keymap.set('n', '<leader>ff', '<cmd>Files<CR>', { noremap=true })
+-- vim.keymap.set('n', '<leader>fg', '<cmd>GFiles<CR>', { noremap=true })
+-- vim.keymap.set('n', '<leader>fr', '<cmd>History<CR>', { noremap=true })
+-- vim.keymap.set('n', '<leader>rg', '<cmd>Rg<CR>', { noremap=true })
+-- vim.keymap.set('n', '<leader>:', '<cmd>History:<CR>', { noremap=true })
+-- vim.keymap.set('n', '<leader>/', '<cmd>BLines<CR>', { noremap=true })
+-- vim.keymap.set('n', '<leader>bb', '<cmd>Buffers<CR>', { noremap=true })
 -- vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', { noremap=true })
 -- vim.api.nvim_set_keymap('n', '<leader>sd', ':Telescope lsp_document_symbols<CR>', { noremap=true })
 -- vim.api.nvim_set_keymap('n', '<leader>sw', ':Telescope lsp_workspace_symbols<CR>', { noremap=true })
@@ -91,7 +103,7 @@ end
 
 -- TREESITTER CONFIG
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = { "c", "zig", "tsx" },
+    ensure_installed = { "c", "zig", "javascript", "tsx" },
     highlight = {
         enable = true,
     },
