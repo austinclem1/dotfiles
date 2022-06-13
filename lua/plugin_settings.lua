@@ -1,9 +1,9 @@
 -- TELESCOPE SHORTCUTS
-vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>sd', ':Telescope lsp_document_symbols<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>sw', ':Telescope lsp_workspace_symbols<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>st', ':Telescope treesitter<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>ch', ':Telescope command_history<CR>', { noremap=true })
+vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<CR>', { noremap=true })
+vim.keymap.set('n', '<leader>sd', '<cmd>Telescope lsp_document_symbols<CR>', { noremap=true })
+vim.keymap.set('n', '<leader>sw', '<cmd>Telescope lsp_workspace_symbols<CR>', { noremap=true })
+vim.keymap.set('n', '<leader>st', '<cmd>Telescope treesitter<CR>', { noremap=true })
+vim.keymap.set('n', '<leader>ch', '<cmd>Telescope command_history<CR>', { noremap=true })
 
 -- Telescope Settings
 require('telescope').setup {
@@ -21,16 +21,16 @@ require('telescope').setup {
     }
 }
 
-vim.api.nvim_set_keymap('n', '<leader>gg', ':Git<CR>', { noremap=true })
+vim.keymap.set('n', '<leader>gg', '<cmd>Git<CR>', { noremap=true })
 
 -- Fuzzy Finder Shortcuts
-vim.api.nvim_set_keymap('n', '<leader>ff', ':Files<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>fg', ':GFiles<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>fr', ':History<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>rg', ':Rg<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>:', ':History:<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>/', ':BLines<CR>', { noremap=true })
-vim.api.nvim_set_keymap('n', '<leader>bb', ':Buffers<CR>', { noremap=true })
+vim.keymap.set('n', '<leader>ff', '<cmd>Files<CR>', { noremap=true })
+vim.keymap.set('n', '<leader>fg', '<cmd>GFiles<CR>', { noremap=true })
+vim.keymap.set('n', '<leader>fr', '<cmd>History<CR>', { noremap=true })
+vim.keymap.set('n', '<leader>rg', '<cmd>Rg<CR>', { noremap=true })
+vim.keymap.set('n', '<leader>:', '<cmd>History:<CR>', { noremap=true })
+vim.keymap.set('n', '<leader>/', '<cmd>BLines<CR>', { noremap=true })
+vim.keymap.set('n', '<leader>bb', '<cmd>Buffers<CR>', { noremap=true })
 -- vim.api.nvim_set_keymap('n', '<leader>fh', ':Telescope help_tags<CR>', { noremap=true })
 -- vim.api.nvim_set_keymap('n', '<leader>sd', ':Telescope lsp_document_symbols<CR>', { noremap=true })
 -- vim.api.nvim_set_keymap('n', '<leader>sw', ':Telescope lsp_workspace_symbols<CR>', { noremap=true })
@@ -43,13 +43,13 @@ vim.g.delimitMate_expand_cr = 1
 vim.g.delimitMate_expand_space = 1
 
 -- F11 for fullscreen
-vim.api.nvim_set_keymap('', '<F11>', ':FullscreenToggle<CR>', { noremap=true })
+vim.keymap.set('', '<F11>', '<cmd>FullscreenToggle<CR>', { noremap=true })
 
 -- NERDTREE SETTINGS
 -- Open on right
 vim.g.NERDTreeWinPos='right'
 -- Use Ctrl-N to toggle
-vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTreeToggle<CR>', { noremap=true })
+vim.keymap.set('n', '<C-n>', '<cmd>NERDTreeToggle<CR>', { noremap=true })
 
 
 -- NEOVIM LSP CONFIG
@@ -91,6 +91,7 @@ end
 
 -- TREESITTER CONFIG
 require'nvim-treesitter.configs'.setup {
+    ensure_installed = { "c", "zig", "tsx" },
     highlight = {
         enable = true,
     },
@@ -150,10 +151,10 @@ cmp.setup({
 
 -- Snippet expansion
 -- actual expansion key mapping is covered by `cmp.mapping.confirm` above
-vim.api.nvim_set_keymap('i', '<C-l>', (vim.fn['vsnip#jumpable'](1) and '<Plug>(vsnip-jump-next)' or '<C-l>'), {})
-vim.api.nvim_set_keymap('s', '<C-l>', (vim.fn['vsnip#jumpable'](1) and '<Plug>(vsnip-jump-next)' or '<C-l>'), {})
-vim.api.nvim_set_keymap('i', '<C-h>', (vim.fn['vsnip#jumpable'](-1) and '<Plug>(vsnip-jump-prev)' or '<C-h>'), {})
-vim.api.nvim_set_keymap('s', '<C-h>', (vim.fn['vsnip#jumpable'](-1) and '<Plug>(vsnip-jump-prev)' or '<C-h>'), {})
+vim.keymap.set('i', '<C-l>', (vim.fn['vsnip#jumpable'](1) and '<Plug>(vsnip-jump-next)' or '<C-l>'), {})
+vim.keymap.set('s', '<C-l>', (vim.fn['vsnip#jumpable'](1) and '<Plug>(vsnip-jump-next)' or '<C-l>'), {})
+vim.keymap.set('i', '<C-h>', (vim.fn['vsnip#jumpable'](-1) and '<Plug>(vsnip-jump-prev)' or '<C-h>'), {})
+vim.keymap.set('s', '<C-h>', (vim.fn['vsnip#jumpable'](-1) and '<Plug>(vsnip-jump-prev)' or '<C-h>'), {})
 
 -- Debug Adapter
 -- local dap = require 'dap'
@@ -215,5 +216,5 @@ require('formatter').setup({
         },
     }
 })
-vim.api.nvim_set_keymap('n', '<leader>fo', ':Format<CR>', { noremap=true, silent=true })
+vim.keymap.set('n', '<leader>fo', '<cmd>Format<CR>', { noremap=true, silent=true })
 
