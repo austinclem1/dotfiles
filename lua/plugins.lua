@@ -12,18 +12,20 @@ return require('packer').startup(function()
     use 'neovim/nvim-lspconfig'
 
     -- Autocompletion
-    use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
+    use 'hrsh7th/nvim-cmp'
 
     -- Snippet engine and sources
     -- use 'honza/vim-snippets'
     use 'hrsh7th/cmp-vsnip'
     use 'hrsh7th/vim-vsnip'
+    use 'hrsh7th/vim-vsnip-integ'
+    use 'rafamadriz/friendly-snippets'
     use 'Metalymph/zig-snippets'
-    use 'honza/vim-snippets'
+    -- use 'honza/vim-snippets'
 
     -- Debug Adapter Protocol
     -- use 'mfussenegger/nvim-dap'

@@ -168,6 +168,8 @@ vim.keymap.set('s', '<C-l>', (vim.fn['vsnip#jumpable'](1) and '<Plug>(vsnip-jump
 vim.keymap.set('i', '<C-h>', (vim.fn['vsnip#jumpable'](-1) and '<Plug>(vsnip-jump-prev)' or '<C-h>'), {})
 vim.keymap.set('s', '<C-h>', (vim.fn['vsnip#jumpable'](-1) and '<Plug>(vsnip-jump-prev)' or '<C-h>'), {})
 
+vim.g.vsnip_filetypes = {javascript={'javascriptreact', 'html'}}
+
 -- Debug Adapter
 -- local dap = require 'dap'
 -- dap.adapters.cpptools = {
