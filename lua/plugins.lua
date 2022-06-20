@@ -138,7 +138,6 @@ return require('packer').startup(function()
     use 'neoclide/vim-jsx-improve'
     use 'udalov/kotlin-vim'
     use 'ziglang/zig.vim'
-    use 'tpope/vim-ragtag'
     use 'neovimhaskell/haskell-vim'
     use 'mhartington/formatter.nvim'
     use 'adelarsq/neofsharp.vim'
@@ -147,6 +146,4 @@ return require('packer').startup(function()
     -- use 'dart-lang/dart-vim-plugin'
     -- use 'OrangeT/vim-csharp'
 
-    -- Silly plugin to connect to chrome text input
-    -- use { 'raghur/vim-ghost', run = ':GhostInstall' }
 end)

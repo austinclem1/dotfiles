@@ -49,11 +49,6 @@ vim.keymap.set('n', '<leader>gg', '<cmd>Git<CR>', { noremap=true })
 -- vim.api.nvim_set_keymap('n', '<leader>st', ':Telescope treesitter<CR>', { noremap=true })
 -- vim.api.nvim_set_keymap('n', '<leader>ch', ':Telescope command_history<CR>', { noremap=true })
 
--- delimMate settings
--- Expand carriage return and space when inside matching pair
-vim.g.delimitMate_expand_cr = 1
-vim.g.delimitMate_expand_space = 1
-
 -- F11 for fullscreen
 vim.keymap.set('', '<F11>', '<cmd>FullscreenToggle<CR>', { noremap=true })
 
