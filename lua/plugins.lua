@@ -92,7 +92,8 @@ return require('packer').startup(function()
 
     -- Git support
     -- use 'tpope/vim-fugitive'
-    use 'extrawurst/gitui'
+    -- use 'jesseduffield/lazygit'
+    use 'kdheepak/lazygit.nvim'
 
     -- Comment action
     use 'tpope/vim-commentary'
@@ -131,7 +132,10 @@ return require('packer').startup(function()
     -- }
     use {
       'nvim-telescope/telescope.nvim',
-      requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+      requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' }, { 'kdheepak/lazygit.nvim' } },
+      config = function()
+        require('telescope').load_extension('lazygit')
+      end,
     }
 
     -- Themes

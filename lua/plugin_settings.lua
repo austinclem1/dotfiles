@@ -33,8 +33,6 @@ telescope.setup {
     }
 }
 
-vim.keymap.set('n', '<leader>gg', '<cmd>Git<CR>', { noremap=true })
-
 -- Fuzzy Finder Shortcuts
 -- vim.keymap.set('n', '<leader>ff', '<cmd>Files<CR>', { noremap=true })
 -- vim.keymap.set('n', '<leader>fg', '<cmd>GFiles<CR>', { noremap=true })
