@@ -16,6 +16,7 @@ return require('packer').startup(function()
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
+    use 'ray-x/cmp-treesitter'
     use 'hrsh7th/nvim-cmp'
 
     -- Snippet engine and sources
@@ -34,6 +35,8 @@ return require('packer').startup(function()
     -- Treesitter for syntax highlighting and more
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
     use 'nvim-treesitter/nvim-treesitter-refactor'
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use 'windwp/nvim-ts-autotag'
     -- use 'nvim-treesitter/completion-treesitter'
 
     use 'justinmk/vim-sneak'
@@ -73,7 +76,10 @@ return require('packer').startup(function()
     use 'machakann/vim-highlightedyank'
 
     -- Pair completion
-    use 'Raimondi/delimitMate'
+    use {
+      'windwp/nvim-autopairs',
+      config = function() require('nvim-autopairs').setup {} end
+    }
 
     -- Easy text object for working with indentation blocks (i.e. function blocks)
     use 'michaeljsmith/vim-indent-object'
@@ -85,7 +91,8 @@ return require('packer').startup(function()
     use 'preservim/nerdtree'
 
     -- Git support
-    use 'tpope/vim-fugitive'
+    -- use 'tpope/vim-fugitive'
+    use 'extrawurst/gitui'
 
     -- Comment action
     use 'tpope/vim-commentary'
@@ -146,4 +153,6 @@ return require('packer').startup(function()
     -- use 'dart-lang/dart-vim-plugin'
     -- use 'OrangeT/vim-csharp'
 
+    -- Sort motion that can work on comma separated lists
+    use 'christoomey/vim-sort-motion'
 end)

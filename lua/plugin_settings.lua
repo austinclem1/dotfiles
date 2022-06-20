@@ -87,7 +87,7 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-local servers = { 'csharp_ls', 'clangd', 'emmet_ls', 'elmls', 'fsautocomplete', 'hls', 'kotlin_language_server', 'zls', 'tsserver' }
+local servers = { 'csharp_ls', 'clangd', 'emmet_ls', 'elmls', 'fsautocomplete', 'hls', 'kotlin_language_server', 'sumneko_lua', 'zls', 'tsserver' }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
@@ -98,29 +98,44 @@ end
 
 -- TREESITTER CONFIG
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = { "c", "zig", "javascript", "tsx" },
-    highlight = {
-        enable = true,
+  ensure_installed = { "c", "zig", "tsx" },
+  highlight = {
+    enable = true,
+  },
+  autotag = {
+    enable = true,
+  },
+  refactor = {
+    highlight_definitions = { enable = true },
+    smart_rename = {
+      enable = true,
+      keymaps = {
+        smart_rename = "<leader>rr",
+      },
     },
-    refactor = {
-        highlight_definitions = { enable = true },
-        smart_rename = {
-            enable = true,
-            keymaps = {
-                    smart_rename = "<leader>rr",
-            },
-        },
-        navigation = {
-            enable = true,
-            keymaps = {
-                goto_definition_lsp_fallback = "gd",
-                list_definitions = "gnD",
-                list_definitions_toc = "gO",
-                goto_next_usage = "<a-*>",
-                goto_previous_usage = "<a-#>",
-            },
-        },
+    navigation = {
+      enable = true,
+      keymaps = {
+        goto_definition_lsp_fallback = "gd",
+        list_definitions = "gnD",
+        list_definitions_toc = "gO",
+        goto_next_usage = "<a-*>",
+        goto_previous_usage = "<a-#>",
+      },
     },
+  },
+  textobjects = {
+    select = {
+      enable = true,
+      -- lookahead = true,
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      },
+    },
+  },
 }
 
 -- Use vim-surround bindings for vim-sandwich
@@ -152,6 +167,7 @@ cmp.setup({
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'vsnip' },
+        { name = 'treesitter' },
         { name = 'buffer' },
     })
 })
