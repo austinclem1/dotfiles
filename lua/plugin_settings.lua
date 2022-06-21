@@ -100,6 +100,9 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
   },
+  indent = {
+    enable = true,
+  },
   autotag = {
     enable = true,
   },
@@ -169,6 +172,11 @@ cmp.setup({
         { name = 'buffer' },
     })
 })
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)
 
 -- Snippet expansion
 -- actual expansion key mapping is covered by `cmp.mapping.confirm` above
