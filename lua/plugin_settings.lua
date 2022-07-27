@@ -8,9 +8,8 @@ vim.keymap.set('n', '<leader>sr', telescope_builtin.lsp_references, { noremap=tr
 vim.keymap.set('n', '<leader>st', telescope_builtin.treesitter, { noremap=true })
 vim.keymap.set('n', '<leader>ch', telescope_builtin.command_history, { noremap=true })
 
-vim.keymap.set('n', '<leader>ff', telescope_builtin.find_files, { noremap=true })
 vim.keymap.set('n', '<leader>fr', telescope_builtin.oldfiles, { noremap=true })
-vim.keymap.set('n', '<leader>fg', telescope_builtin.git_files, { noremap=true })
+vim.keymap.set('n', '<leader>ff', telescope_builtin.git_files, { noremap=true })
 vim.keymap.set('n', '<leader>fq', telescope_builtin.quickfix, { noremap=true })
 vim.keymap.set('n', '<leader>rg', telescope_builtin.live_grep, { noremap=true })
 vim.keymap.set('n', '<leader>:', telescope_builtin.command_history, { noremap=true })
