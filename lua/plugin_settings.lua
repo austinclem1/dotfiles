@@ -49,11 +49,14 @@ telescope.setup {
 -- F11 for fullscreen
 vim.keymap.set('', '<F11>', '<cmd>FullscreenToggle<CR>', { noremap=true })
 
--- NERDTREE SETTINGS
+-- NVIM-TREE SETTINGS
 -- Open on right
-vim.g.NERDTreeWinPos='right'
--- Use Ctrl-N to toggle
-vim.keymap.set('n', '<C-n>', '<cmd>NERDTreeToggle<CR>', { noremap=true })
+require("nvim-tree").setup({
+  view = {
+    side = "right",
+  },
+})
+vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<CR>', { noremap=true })
 
 
 -- NEOVIM LSP CONFIG

@@ -87,8 +87,14 @@ return require('packer').startup(function()
     -- Easy fullscreen support
     use 'lambdalisue/vim-fullscreen'
 
-    -- Nerdtree file navigation
-    use 'preservim/nerdtree'
+    -- Nvim Tree file navigation
+    use {
+      'kyazdani42/nvim-tree.lua',
+      requires = {
+        'kyazdani42/nvim-web-devicons',
+      },
+      tag = 'nightly'
+    }
 
     -- Git support
     -- use 'tpope/vim-fugitive'
