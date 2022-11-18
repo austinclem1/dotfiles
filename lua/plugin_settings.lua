@@ -1,35 +1,37 @@
 -- TELESCOPE SHORTCUTS
 local telescope = require('telescope')
 local telescope_builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>fh', telescope_builtin.help_tags, { noremap=true })
-vim.keymap.set('n', '<leader>sd', telescope_builtin.lsp_document_symbols, { noremap=true })
-vim.keymap.set('n', '<leader>sw', telescope_builtin.lsp_workspace_symbols, { noremap=true })
-vim.keymap.set('n', '<leader>sr', telescope_builtin.lsp_references, { noremap=true })
-vim.keymap.set('n', '<leader>st', telescope_builtin.treesitter, { noremap=true })
-vim.keymap.set('n', '<leader>ch', telescope_builtin.command_history, { noremap=true })
+vim.keymap.set('n', '<leader>fh', telescope_builtin.help_tags, { noremap = true })
+vim.keymap.set('n', '<leader>sd', telescope_builtin.lsp_document_symbols, { noremap = true })
+vim.keymap.set('n', '<leader>sw', telescope_builtin.lsp_workspace_symbols, { noremap = true })
+vim.keymap.set('n', '<leader>sr', telescope_builtin.lsp_references, { noremap = true })
+vim.keymap.set('n', '<leader>st', telescope_builtin.treesitter, { noremap = true })
+vim.keymap.set('n', '<leader>ch', telescope_builtin.command_history, { noremap = true })
 
-vim.keymap.set('n', '<leader>fr', telescope_builtin.oldfiles, { noremap=true })
-vim.keymap.set('n', '<leader>ff', telescope_builtin.git_files, { noremap=true })
-vim.keymap.set('n', '<leader>fq', telescope_builtin.quickfix, { noremap=true })
-vim.keymap.set('n', '<leader>rg', telescope_builtin.live_grep, { noremap=true })
-vim.keymap.set('n', '<leader>:', telescope_builtin.command_history, { noremap=true })
-vim.keymap.set('n', '<leader>/', telescope_builtin.current_buffer_fuzzy_find, { noremap=true })
-vim.keymap.set('n', '<leader>bb', telescope_builtin.buffers, { noremap=true })
+vim.keymap.set('n', '<leader>fr', telescope_builtin.oldfiles, { noremap = true })
+vim.keymap.set('n', '<leader>ff', telescope_builtin.find_files, { noremap = true })
+vim.keymap.set('n', '<C-p>', telescope_builtin.git_files, { noremap = true })
+vim.keymap.set('n', '<leader>gf', telescope_builtin.git_files, { noremap = true })
+vim.keymap.set('n', '<leader>fq', telescope_builtin.quickfix, { noremap = true })
+vim.keymap.set('n', '<leader>rg', telescope_builtin.live_grep, { noremap = true })
+vim.keymap.set('n', '<leader>:', telescope_builtin.command_history, { noremap = true })
+vim.keymap.set('n', '<leader>/', telescope_builtin.current_buffer_fuzzy_find, { noremap = true })
+vim.keymap.set('n', '<leader>bb', telescope_builtin.buffers, { noremap = true })
 
 -- Telescope Settings
 telescope.setup {
-    defaults = {
-        vimgrep_arguments = {
-            'rg',
-            '--color=never',
-            '--no-heading',
-            '--with-filename',
-            '--line-number',
-            '--column',
-            '--smart-case',
-            '--follow'
-        }
+  defaults = {
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case',
+      '--follow'
     }
+  }
 }
 
 -- Fuzzy Finder Shortcuts
@@ -47,7 +49,7 @@ telescope.setup {
 -- vim.api.nvim_set_keymap('n', '<leader>ch', ':Telescope command_history<CR>', { noremap=true })
 
 -- F11 for fullscreen
-vim.keymap.set('', '<F11>', '<cmd>FullscreenToggle<CR>', { noremap=true })
+vim.keymap.set('', '<F11>', '<cmd>FullscreenToggle<CR>', { noremap = true })
 
 -- NVIM-TREE SETTINGS
 -- Open on right
@@ -55,39 +57,45 @@ require("nvim-tree").setup({
   view = {
     side = "right",
   },
+  respect_buf_cwd = true,
+  -- update_focused_file = {
+  --   enable = true,
+  --   update_cwd = true,
+  -- },
 })
-vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<CR>', { noremap=true })
+vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<CR>', { noremap = true })
 
 
 -- NEOVIM LSP CONFIG
 local on_attach = function(client, bufnr)
-    -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-    -- require('completion').on_attach()
+  -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- require('completion').on_attach()
 
-    -- Mappings
-    local bufopts = { noremap=true, silent=true, buffer=bufnr }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    -- This is provided by treesitter below, which will fallback to lsp when necessary
-    -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    vim.keymap.set('n', '<space>wl', function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, bufopts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('n', '<space>gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
+  -- Mappings
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  -- This is provided by treesitter below, which will fallback to lsp when necessary
+  -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<space>gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-local servers = { 'csharp_ls', 'clangd', 'emmet_ls', 'elmls', 'fsautocomplete', 'hls', 'kotlin_language_server', 'sumneko_lua', 'zls', 'tsserver' }
+local servers = { 'csharp_ls', 'clangd', 'emmet_ls', 'elmls', 'fsautocomplete', 'hls', 'kotlin_language_server',
+  'sumneko_lua', 'zls', 'tsserver', 'rust_analyzer' }
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
@@ -97,7 +105,7 @@ for _, lsp in pairs(servers) do
 end
 
 -- TREESITTER CONFIG
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
   ensure_installed = { "c", "zig", "tsx" },
   highlight = {
     enable = true,
@@ -145,34 +153,34 @@ require'nvim-treesitter.configs'.setup {
 vim.cmd('runtime macros/sandwich/keymap/surround.vim')
 
 -- Autocompletion
-local cmp = require'cmp'
+local cmp = require 'cmp'
 
 cmp.setup({
-    snippet = {
-        expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
-        end,
-    },
-    mapping = {
-        ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-        ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-        ['<C-y>'] = cmp.config.disable,
-        ['<C-e>'] = cmp.mapping({
-            i = cmp.mapping.abort(),
-            c = cmp.mapping.close(),
-        }),
-        ['<CR>'] = cmp.mapping.confirm({ select = false }),
-        ['<C-l>'] = cmp.mapping.confirm({ select = false }),
-        ['<C-n>'] = cmp.mapping.select_next_item({ behavior = Insert }),
-        ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = Insert }),
-    },
-    sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'vsnip' },
-        { name = 'treesitter' },
-        { name = 'buffer' },
-    })
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  mapping = {
+    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    ['<C-y>'] = cmp.config.disable,
+    ['<C-e>'] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    }),
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
+    ['<C-l>'] = cmp.mapping.confirm({ select = false }),
+    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = Insert }),
+    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = Insert }),
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' },
+    { name = 'treesitter' },
+    { name = 'buffer' },
+  })
 })
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 cmp.event:on(
@@ -187,7 +195,7 @@ vim.keymap.set('s', '<C-l>', (vim.fn['vsnip#jumpable'](1) and '<Plug>(vsnip-jump
 vim.keymap.set('i', '<C-h>', (vim.fn['vsnip#jumpable'](-1) and '<Plug>(vsnip-jump-prev)' or '<C-h>'), {})
 vim.keymap.set('s', '<C-h>', (vim.fn['vsnip#jumpable'](-1) and '<Plug>(vsnip-jump-prev)' or '<C-h>'), {})
 
-vim.g.vsnip_filetypes = {javascript={'javascriptreact', 'html'}}
+vim.g.vsnip_filetypes = { javascript = { 'javascriptreact', 'html' } }
 
 -- Debug Adapter
 -- local dap = require 'dap'
@@ -214,40 +222,39 @@ vim.g.vsnip_filetypes = {javascript={'javascriptreact', 'html'}}
 
 -- Workaround for OrangeT/vim-csharp to detect .razor files
 vim.api.nvim_command(
-'au BufNewFile,BufRead *.razor compiler msbuild | set filetype=cshtml.html syntax=cshtml'
+  'au BufNewFile,BufRead *.razor compiler msbuild | set filetype=cshtml.html syntax=cshtml'
 )
 
 -- Formatter
 require('formatter').setup({
-    filetype = {
-        javascriptreact = {
-            function()
-                return {
-                    exe = "prettier",
-                    args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
-                    stdin = true
-                }
-            end
-        },
-        javascript = {
-            function()
-                return {
-                    exe = "prettier",
-                    args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
-                    stdin = true
-                }
-            end
-        },
-        html = {
-            function()
-                return {
-                    exe = "prettier",
-                    args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
-                    stdin = true
-                }
-            end
-        },
-    }
+  filetype = {
+    javascriptreact = {
+      function()
+        return {
+          exe = "prettier",
+          args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote' },
+          stdin = true
+        }
+      end
+    },
+    javascript = {
+      function()
+        return {
+          exe = "prettier",
+          args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote' },
+          stdin = true
+        }
+      end
+    },
+    html = {
+      function()
+        return {
+          exe = "prettier",
+          args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote' },
+          stdin = true
+        }
+      end
+    },
+  }
 })
-vim.keymap.set('n', '<leader>fo', '<cmd>Format<CR>', { noremap=true, silent=true })
-
+vim.keymap.set('n', '<leader>fo', '<cmd>Format<CR>', { noremap = true, silent = true })
