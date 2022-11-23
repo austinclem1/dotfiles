@@ -91,8 +91,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 local servers = { 'csharp_ls', 'clangd', 'emmet_ls', 'elmls', 'fsautocomplete', 'hls', 'kotlin_language_server',
   'sumneko_lua', 'zls', 'tsserver', 'rust_analyzer' }
